@@ -1,0 +1,94 @@
+<!--###############################################################################################
+# OSLiFe-DiSC describes OSI approved Open Source Licenses through Features (legal terms)
+# according to a unified model It allows to Discover each license and understand it, to Select
+# licenses satisfying a set of features and Compare two licenses to highlight the differences.
+###############################################################################################
+
+# This file is part of OSLiFe-DiSC -
+# Copyright © 2022 Sihem Ben Sassi
+#
+# OSLiFe-DiSC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# OSLiFe-DiSC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License, version 3 for more details.
+#
+# You should have received a copy of the GNU Affero General Public License,
+# version 3 along with OSLiFe-DiSC. If not, see <http://www.gnu.org/licenses/>.-->
+{% extends "base.html"%}
+{% block title %}Compare{%endblock %}
+{% block content %}
+
+<!--for the flash message-->
+{%for message in get_flashed_messages()%}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endfor%}
+
+<div class="container mt-5 " style="height:410px;">
+    <div class="row ">
+        <div class="col" style="height:350px;">
+
+            <!--go to home and select pages-->
+            <div class="row ">
+                <div class="col ">
+                    <a href="/" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Home"
+                       role="button"><i class="fas fa-angle-double-left fa-beat" style="--fa-beat-scale:2.0;"></i></a>
+                </div>
+                <div class="col d-flex flex-row-reverse">
+                    <a href="/selection" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                       data-bs-title="Select" role="button"><i class="fas fa-angle-double-right fa-beat"
+                                                               style="--fa-beat-scale:2.0;"></i></a>
+                </div>
+            </div>
+
+            <!--to compare-->
+            <div class="card h-100 shadow" style="background-color:#708090;">
+                <div class="card-body mt-5">
+                    <strong class="card-title ">
+                        <center>compare between licenses</center>
+                    </strong>
+                    <p class="card-text">
+                    <form method="POST" action="{{url_for('views.compare_result')}}">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input class="form-control" list="datalistOptions1" id="exampleDataList1"
+                                       placeholder="Type to search the first license..." name="license1">
+                                <datalist id="datalistOptions1">
+                                    {%for i in result_name%}
+                                    <option value="{{i}}">
+                                        {%endfor%}
+                                </datalist>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" list="datalistOptions2" id="exampleDataList2"
+                                       placeholder="Type to search the second license..." name="license2">
+                                <datalist id="datalistOptions2">
+                                    {%for i in result_name%}
+                                    <option value="{{i}}">
+                                        {%endfor%}
+                                </datalist>
+                            </div>
+                        </div>
+                        <center>
+                            <button class="btn btn mt-5" type="submit" style="background-color:#D3D3D3;color:#708090;">
+                                Compare Licenses Features
+                            </button>
+                        </center>
+                    </form>
+                    </p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+{%endblock %}

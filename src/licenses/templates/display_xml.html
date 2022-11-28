@@ -1,0 +1,28 @@
+{% extends "base.html"%}
+{% block title %}Selection{%endblock %}
+{% block content %}
+<div class="container mt-5 mb-5" >
+    <!--go back to home-->
+    <div class="col ">
+            <a href="/" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Home"
+               role="button"><i class="fas fa-angle-double-left fa-beat" style="--fa-beat-scale:2.0;"></i></a><span style="color:blue">Go Back</span>
+        </div>
+        <!--display the xml file -->
+    <div class="row">
+        <div class="col">
+            <div class="card h-100 shadow" style="background-color:#F5FFFA;">
+                <div class="card-body">
+                    <h5 class="card-title">&lt;!--{{license_name}}--&gt;</h5>
+
+<pre lang="xml">
+
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;license_feature xmlns:xsi="<a href="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2001/XMLSchema-instance</a>"&gt;
+{%for i in range (1,res.__len__())%}{%if "True" in res[i]%}<strong style="color:green">{{res[i]}}</strong>{%elif "False" in res[i]%}<strong style="color:red">{{res[i]}}</strong>{%else%}{{res[i]}}{%endif%}{%endfor%}
+</pre>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}

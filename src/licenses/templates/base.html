@@ -1,0 +1,105 @@
+<!--###############################################################################################
+# OSLiFe-DiSC describes OSI approved Open Source Licenses through Features (legal terms)
+# according to a unified model It allows to Discover each license and understand it, to Select
+# licenses satisfying a set of features and Compare two licenses to highlight the differences.
+###############################################################################################
+
+# This file is part of OSLiFe-DiSC -
+# Copyright © 2022 Sihem Ben Sassi
+#
+# OSLiFe-DiSC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# OSLiFe-DiSC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License, version 3 for more details.
+#
+# You should have received a copy of the GNU Affero General Public License,
+# version 3 along with OSLiFe-DiSC. If not, see <http://www.gnu.org/licenses/>.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+
+    <!--css file for bootstrap and font awesome-->
+    <link href="../static/style.css" rel="stylesheet" type="text/css">
+    <link href="../static/fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="background-color:#F0F8FF;">
+
+<!--the navbar-->
+<nav class="navbar navbar-expand-lg  shadow " id="navbar" style="background-color:#00cccc;">
+    <div class="container me-5">
+        <a href="/" role="button" class="navbar-brand disabled " style="color:#FCFCFC;" data-bs-placement="bottom"
+           data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+           data-bs-title="Open Source Licenses Features: Discover, Select and Compare"><i
+                class="fas fa-house-chimney"></i> OSLiFe-DiSC: </a>Open Source
+        Licenses Features: Discover, Select and Compare
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ms-5 " id="navbarSupportedContent">
+            <form class="d-flex gap-1  ms-5" role="search" method="POST" action="{{url_for('views.search')}}">
+                <input class="form-control ms-5" style="width:100%;" list="datalistOptions1" id="exampleDataList1"
+                       placeholder="start typing..."
+                       name="search">
+                <datalist id="datalistOptions1">
+                    {%for i in result_name%}
+                    <option value="{{i}}">
+                        {%endfor%}
+                </datalist>
+                <button class="btn btn-outline-dark " type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" style="width:50%;"><i style="padding-right:5px"
+                                                                               class="fas fa-search"></i>Search
+                </button>
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="background-color:#708090;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel" style="color:#D3D3D3;">What do you want to 
+                                    discover?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <button class="btn btn me-5 " type="submit"
+                                        style="background-color:#D3D3D3;color:#708090;">Features
+                                </button>
+                                <button type="button" class="btn btn " onclick="display_xml()"
+                                        style="background-color:#D3D3D3;color:#708090;">XML file
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!--content in the other html-->
+{% block content%}{%endblock%}
+
+<!--the footer-->
+<footer class="bg-dark p-4" id="footer">
+    <p class="text-center text-white">OSLiFe-DiSC v1.0 Copyright <i class="far fa-copyright"></i> 2022, Sihem Ben Sassi </p>
+	<p class="text-center text-white">OSLiFe-DiSC v1.0 is Licensed under the GNU Affero General Public License v3.0 (AGPL-3.0) license.</p>
+</footer>
+
+<!--js file-->
+<script src="{{url_for('static', filename= 'index.js')}}" crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename= 'jquery.js')}}" crossorigin="anonymous"></script>
+
+</body>
+</html>

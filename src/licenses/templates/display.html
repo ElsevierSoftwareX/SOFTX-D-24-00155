@@ -1,0 +1,115 @@
+<!--###############################################################################################
+# OSLiFe-DiSC describes OSI approved Open Source Licenses through Features (legal terms)
+# according to a unified model It allows to Discover each license and understand it, to Select
+# licenses satisfying a set of features and Compare two licenses to highlight the differences.
+###############################################################################################
+
+# This file is part of OSLiFe-DiSC -
+# Copyright © 2022 Sihem Ben Sassi
+#
+# OSLiFe-DiSC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# OSLiFe-DiSC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License, version 3 for more details.
+#
+# You should have received a copy of the GNU Affero General Public License,
+# version 3 along with OSLiFe-DiSC. If not, see <http://www.gnu.org/licenses/>.-->
+
+{% extends "base.html"%}
+{% block title %}Display{%endblock %}
+{% block content %}
+<div class="container mt-5 mb-5">
+
+    <!--go back to home-->
+    <div class="col ">
+        <a href="/" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Home"
+           role="button"><i class="fas fa-angle-double-left fa-beat" style="--fa-beat-scale:2.0;"></i></a><span
+            style="color:blue">Go Back</span>
+    </div>
+
+    <!--display the features of the license-->
+    <div class="row">
+        <div class="col">
+            <div class="card h-100 shadow" style="background-color:#F5FFFA;">
+                <div class="card-body">
+                    <p class="card-text">
+                    <h5 class="card-title">Features of {{res}} :</h5>
+                    <br/>
+                    {%if full_name==''%}
+                    <p style="color:red"><strong>(The license to use or recommend has expired.)</strong></p>
+                    {%else%}
+                    <p><strong>Full Name: </strong>
+                        <mark> {{full_name}}</mark>
+                    </p>
+                    <p><strong>SPDX Short Identifier: </strong>
+                        <mark>{{IDs}}</mark>
+                    </p>
+                    <p><a href="https://spdx.org/licenses/{{IDs}}.html" target="_blank"> Link to SPDX license text page <i
+                            class="fas fa-square-arrow-up-right"></i></a></p>
+                    {%endif%}
+                    <p><a href="https://opensource.org/licenses/{{IDs}}" target="_blank">Link to OSI license text page <i
+                            class="fas fa-square-arrow-up-right"></i></a></p>
+                    <ul>
+                        <li><i class="far fa-file"></i>{{racine.name}}</li>
+                        <ul>
+                            {%for i in racine.children %}
+                            {% if i.is_leaf%}
+                            <li><i class="fas fa-check" style="color:green"></i>{{i.name}}</li>
+                            {%else %}
+                            <li><i class="far fa-file"></i>{{i.name}}</li>
+                            <ul>
+                                {%for j in i.children%}
+                                {% if j.is_leaf%}
+                                <li><i class="fas fa-check" style="color:green"></i>{{j.name}}</li>
+                                {%else%}
+                                <li><i class="far fa-file"></i>{{j.name}}</li>
+                                <ul>
+                                    {%for k in j.children%}
+                                    {% if k.is_leaf%}
+                                    <li><i class="fas fa-check" style="color:green"></i>{{k.name}}</li>
+                                    {%else%}
+                                    <li><i class="far fa-file"></i>{{k.name}}</li>
+                                    <ul>
+                                        {%for l in k.children %}
+                                        {% if l.is_leaf %}
+                                        <li><i class="fas fa-check" style="color:green"></i>{{l.name}}</li>
+                                        {%else%}
+                                        <li><i class="far fa-file"></i>{{l.name}}</li>
+                                        <ul>
+                                            {%for p in l.children%}
+                                            {% if p.is_leaf%}
+                                            <li><i class="fas fa-check" style="color:green"></i>{{p.name}}</li>
+                                            {%endif%}
+                                            {%endfor%}
+                                        </ul>
+                                        </li>
+                                        {%endif%}
+                                        {%endfor%}
+                                    </ul>
+                                    </li>
+                                    {%endif%}
+                                    {%endfor%}
+                                </ul>
+                                </li>
+                                {%endif%}
+                                {%endfor%}
+                            </ul>
+                            </li>
+                            {%endif%}
+                            {%endfor%}
+                        </ul>
+                        </li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock %}

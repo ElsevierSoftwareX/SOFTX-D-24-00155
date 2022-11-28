@@ -1,0 +1,161 @@
+<!--###############################################################################################
+# OSLiFe-DiSC describes OSI approved Open Source Licenses through Features (legal terms)
+# according to a unified model It allows to Discover each license and understand it, to Select
+# licenses satisfying a set of features and Compare two licenses to highlight the differences.
+###############################################################################################
+
+# This file is part of OSLiFe-DiSC -
+# Copyright © 2022 Sihem Ben Sassi
+#
+# OSLiFe-DiSC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# OSLiFe-DiSC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License, version 3 for more details.
+#
+# You should have received a copy of the GNU Affero General Public License,
+# version 3 along with OSLiFe-DiSC. If not, see <http://www.gnu.org/licenses/>.-->
+
+{% extends "base.html"%}
+{% block title %}Selection{%endblock %}
+{% block content %}
+
+<!--show the flashed message-->
+{%for message in get_flashed_messages()%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endfor%}
+
+<div class="container center mt-5 mb-5">
+
+    <!--go to compare or home page-->
+    <div class="row ">
+        <div class="col ">
+            <a href="/compare" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Compare"
+               role="button"><i class="fas fa-angle-double-left fa-beat" style="--fa-beat-scale:2.0;"></i></a>
+        </div>
+        <div class="col d-flex flex-row-reverse">
+            <a href="/" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="home"
+               role="button"><i class="fas fa-angle-double-right fa-beat" style="--fa-beat-scale:2.0;"></i></a>
+        </div>
+    </div>
+
+    <!--show the features that could be checked-->
+    <div class="row">
+        <div class="col-8 shadow">
+            <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0"
+                 data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+                <ul>
+                    <li><i class="far fa-file"></i>{{racine.name}}</li>
+                    <ul>
+                        {%for i in racine.children %}
+                        {% if i.is_leaf%}
+                        <li>
+                            <input id="{{i.name}}0" onclick="verify_checked('{{i.name}}',0)" class="form-check-input"
+                                   type="checkbox"
+                                   value="{{i.name}}" name="mybox">{{i.name}}
+                        </li>
+                        {%else %}
+                        <li><i class="far fa-file"></i>{{i.name}}</li>
+                        <ul>
+                            {%for j in i.children%}
+                            {% if j.is_leaf %}
+                            {%if j.name in ["Access_source_code","Use_software","Copy_software","Modify_software"]%}
+                            <li><span><input id="{{j.name}}0" onclick="verify_checked('{{j.name}}',0)"
+                                             class="form-check-input" type="checkbox"
+                                             value="{{j.name}}" name="mybox" checked disabled>{{j.name}}</span></li>
+                            {%else%}
+                            <li><span><input id="{{j.name}}1" onclick="verify_checked('{{j.name}}',1)"
+                                             class="form-check-input" type="checkbox"
+                                             value="{{j.name}}" name="mybox">{{j.name}}</span></li>
+                            {%endif%}
+                            {%else%}
+                            <li><i class="far fa-file"></i>{{j.name}}</li>
+                            <ul>
+                                {%for k in j.children%}
+                                {% if k.is_leaf%}
+                                <li>
+                                    <input id="{{k.name}}0" onclick="verify_checked('{{k.name}}',0)"
+                                           class="form-check-input"
+                                           type="checkbox" value="{{k.name}}" name="mybox">{{k.name}}
+                                </li>
+                                {%else%}
+                                <li><i class="far fa-file"></i>{{k.name}}</li>
+                                <ul>
+                                    {%for l in k.children %}
+                                    {% if l.is_leaf %}
+                                    <li>
+                                        <input id="{{l.name}}0" onclick="verify_checked('{{l.name}}',0)"
+                                               class="form-check-input"
+                                               type="checkbox" value="{{l.name}}"
+                                               name="mybox">{{l.name}}
+                                    </li>
+                                    {%else%}
+                                    <li><i class="far fa-file"></i>{{l.name}}</li>
+                                    <ul>
+                                        {%for p in l.children%}
+                                        {% if p.is_leaf %}
+                                        <li>
+                                            <input id="{{p.name}}0" onclick="verify_checked('{{p.name}}',0)"
+                                                   class="form-check-input"
+                                                   type="checkbox" value="{{p.name}}"
+                                                   name="mybox">{{p.name}}
+                                        </li>
+                                        {%endif%}
+                                        {%endfor%}
+                                    </ul>
+                                    </li>
+                                    {%endif%}
+                                    {%endfor%}
+                                </ul>
+                                </li>
+                                {%endif%}
+                                {%endfor%}
+                            </ul>
+                            </li>
+                            {%endif%}
+                            {%endfor%}
+                        </ul>
+                        </li>
+                        {%endif%}
+                        {%endfor%}
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--show the zone of result-->
+        <div class="col " style="position:relative" id="container">
+            <p class="placeholder-glow shadow">
+            <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0"
+                 data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+                <ul>
+                    {%for i in res%}
+                    <li>
+                        <div class="text-success opacity-100"><a href="/display/{{i[0]}}"
+                                                                 class="link-success">{{i[0]}}</a> :
+                            <strong role="button" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="{{i[4]}}">{{i[2]}}</strong>/{{i[3]}}:
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-label="Example with label"
+                                     style="width: {{i[1]}}%" ; aria-valuenow={{i[1]}} aria-valuemin="0"
+                                     aria-valuemax="100">{{i[1]}}%
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <br/>
+                    {%endfor%}
+                </ul>
+            </div>
+            </p>
+        </div>
+    </div>
+</div>
+{%endblock %}
