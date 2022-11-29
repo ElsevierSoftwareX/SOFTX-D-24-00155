@@ -50,7 +50,9 @@ To install these packages either:
 2- Either modify the password for the MySQL connection on the connection.py file to your set password, or 
    set the password "Osl123disc" for the root.
 
-## Step 5: Run OSLiFe-DiSC
+## Step 5: run OSLiFe-DiSC
 1- Run python oslf.py, or
 
 1- Run the file using pyCharm
+
+2- Open http://127.0.0.1:5000 in your browser to start.
