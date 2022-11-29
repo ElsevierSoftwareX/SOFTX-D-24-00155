@@ -14,13 +14,15 @@ You need a database named oslicenses to be loaded on MySQL server.
 1- Download and install Python interpreter 3.10 or later from the official Website (https://www.python.org/downloads/release/python-3106/)
    - Run the following command to ensure that pip (Python packages installer) is installed.
    python -m pip install --upgrade pip
+
 2- Download and install MySQL Server 8.0 or later from the official Website
    (https://dev.mysql.com/downloads/installer/)
 
 ## Step 2: get a copy of OSLiFe-DiSC source code
-1- Clone the project on your personal computer using git.
+1- Clone the project on your personal computer using git,
 or
-1- Download and unzip source code of OSLiFe-DiSC on your personal computer.
+
+1- Download and unzip source code of OSLiFe-DiSC (OSLiFe-DiSC V1.0 Source Code.zip file) on your personal computer.
 
 ## Step 3: install required packages
 Required packages for the tool: (connection / mysqlclient)
@@ -32,7 +34,9 @@ Required packages for the tool: (connection / mysqlclient)
 - waitress 
 
 To install these packages either:
-1- Run the command  pip install <package_name>
+
+1- Run the command  pip install <package_name>, or
+
 1- Install PyCharm from the official Website (https://www.jetbrains.com/pycharm/download/)
    - open the tool project (source files)
    - Click File > Settings > Python Interpreter  
@@ -42,9 +46,11 @@ To install these packages either:
 ## Step 4: copy the data
 1- Get the path to datab folder with the tool source folder and run the following command:
 "mysql -u root -p oslicenses < <path_to>osls.sql"  
+
 2- Either modify the password for the MySQL connection on the connection.py file to your set password, or 
    set the password "Osl123disc" for the root.
 
 ## Step 5: Run OSLiFe-DiSC
 1- Run python oslf.py, or
+
 1- Run the file using pyCharm
