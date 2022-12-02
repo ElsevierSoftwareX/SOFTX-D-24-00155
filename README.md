@@ -8,6 +8,7 @@
    
   # For Developers:
   The #Source code# is hosted in GitHub (https://github.com/Sihembs/OSLiFe-DiSC) 
+  A Demo illustrating the provided functionalities is available (https://youtu.be/VwzBq7XBTvk)
  
   ## Requirements
 You need to have python and MySQL server installed on your computer.
